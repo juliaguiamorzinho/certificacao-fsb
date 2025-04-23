@@ -10,10 +10,11 @@ document.getElementById('certForm').addEventListener('submit', async function(e)
   document.getElementById('msg').innerText = "Enviando...";
 
   try {
-    const response = await fetch('URL_DO_SEU_APPS_SCRIPT', {
-      method: 'POST',
-      body: JSON.stringify(data),
-    });
+const response = await fetch('https://script.google.com/macros/s/AKfycbzzeC16lkgMlyOJq-DEInJFsasFaBum8TvZcN8xc999kvaQT4BTps1UsCGcQBxZ39WwIQ/exec', {
+  method: 'POST',
+  body: JSON.stringify(data),
+});
+
 
     const result = await response.json();
     document.getElementById('msg').innerText = result.mensagem;
