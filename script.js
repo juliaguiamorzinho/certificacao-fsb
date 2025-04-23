@@ -1,5 +1,6 @@
 document.getElementById('certForm').addEventListener('submit', async function(e) {
   e.preventDefault();
+
   const form = e.target;
   const data = {
     nome: form.nome.value,
@@ -7,18 +8,26 @@ document.getElementById('certForm').addEventListener('submit', async function(e)
     resposta: form.resposta.value
   };
 
-  document.getElementById('msg').innerText = "Enviando...";
+  document.getElementById('msg').innerText = "Gerando certificado...";
 
   try {
-const response = await fetch('https://script.google.com/macros/s/AKfycbwN0e0eDXUD6b0llv1KclkZZr-EV8Ga6vnbpIcwQW-hqNsL36hQfHHEi67NVbZh0Jwanw/exec', {
-  method: 'POST',
-  body: JSON.stringify(data),
-});
-
+    const response = await fetch('https://script.google.com/macros/s/AKfycbwd7Ri97XfrOvL5Ul1-7H3Zjwyjp9miGdqyptuO1zmPZW6B0ALU9NmDLmVFd_-JabqW8A/exec', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data)
+    });
 
     const result = await response.json();
-    document.getElementById('msg').innerText = result.mensagem;
+    if (result.linkCertificado) {
+      document.getElementById('msg').innerHTML = `
+        ✅ ${result.mensagem}<br>
+        <a href="${result.linkCertificado}" target="_blank">Clique aqui para baixar seu certificado</a>
+      `;
+    } else {
+      document.getElementById('msg').innerText = result.mensagem;
+    }
   } catch (error) {
-    document.getElementById('msg').innerText = "Erro ao enviar. Tente novamente mais tarde.";
+    console.error(error);
+    document.getElementById('msg').innerText = "Erro ao gerar certificado. Tente novamente.";
   }
 });
