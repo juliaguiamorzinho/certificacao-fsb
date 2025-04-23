@@ -11,7 +11,7 @@ document.getElementById('certForm').addEventListener('submit', async function(e)
   document.getElementById('msg').innerText = "Gerando certificado...";
 
   try {
-    const response = await fetch('https://script.google.com/macros/s/AKfycbwd7Ri97XfrOvL5Ul1-7H3Zjwyjp9miGdqyptuO1zmPZW6B0ALU9NmDLmVFd_-JabqW8A/exec', {
+    const response = await fetch('https://script.google.com/macros/s/AKfycbwpe_X2IAKGV05fU-9HRusOejPhTyH-vlw_1M5Kzq_5-tdoDidzevZn-VMKxUS7jSVl/exec', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(data)
